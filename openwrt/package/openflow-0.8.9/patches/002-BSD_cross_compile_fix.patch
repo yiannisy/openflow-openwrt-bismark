@@ -1,0 +1,37 @@
+Index: openflow-0.9.0-rc1/lib/util.c
+===================================================================
+--- openflow-0.9.0-rc1.orig/lib/util.c	2009-07-08 11:54:01.000000000 -0700
++++ openflow-0.9.0-rc1/lib/util.c	2009-07-08 12:00:05.000000000 -0700
+@@ -138,6 +138,7 @@
+     return s;
+ }
+ 
++#ifndef  __USE_BSD
+ void
+ strlcpy(char *dst, const char *src, size_t size)
+ {
+@@ -148,6 +149,7 @@
+         dst[n_copy] = '\0';
+     }
+ }
++#endif
+ 
+ void
+ ofp_fatal(int err_no, const char *format, ...)
+Index: openflow-0.9.0-rc1/lib/util.h
+===================================================================
+--- openflow-0.9.0-rc1.orig/lib/util.h	2009-07-08 11:54:01.000000000 -0700
++++ openflow-0.9.0-rc1/lib/util.h	2009-07-08 11:59:45.000000000 -0700
+@@ -103,10 +103,12 @@
+ char *xasprintf(const char *format, ...) PRINTF_FORMAT(1, 2);
+ char *xvasprintf(const char *format, va_list) PRINTF_FORMAT(1, 0);
+ 
++#ifndef  __USE_BSD
+ #ifndef HAVE_STRLCPY
+ void strlcpy(char *dst, const char *src, size_t size);
+ #endif
++#endif
+ 
+ void ofp_fatal(int err_no, const char *format, ...)
+     PRINTF_FORMAT(2, 3) NO_RETURN;
+ void ofp_error(int err_no, const char *format, ...) PRINTF_FORMAT(2, 3);

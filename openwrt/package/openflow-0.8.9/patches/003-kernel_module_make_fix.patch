@@ -1,0 +1,13 @@
+Index: openflow/datapath/linux-2.6/Makefile.main.in
+===================================================================
+--- openflow.orig/datapath/linux-2.6/Makefile.main.in	2009-07-06 13:14:58.000000000 -0700
++++ openflow/datapath/linux-2.6/Makefile.main.in	2009-07-12 18:43:16.000000000 -0700
+@@ -48,7 +48,7 @@
+ endif
+ 
+ default:
+-	$(MAKE) -C $(KSRC) M=$(builddir) modules
++	$(MAKE) -C $(KSRC) CROSS_COMPILE=$(CROSS_COMPILE) ARCH=$(ARCH) M=$(builddir) modules CC=$(KCC)
+ endif
+ 
+ # Much of the kernel build system in this file is derived from Intel's

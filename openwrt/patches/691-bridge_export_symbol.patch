@@ -1,0 +1,8 @@
+--- a/net/bridge/br_notify.c	2009-08-12 23:05:58.000000000 -0700
++++ b/net/bridge/br_notify.c	2009-05-02 11:54:43.000000000 -0700
+@@ -91,3 +91,5 @@
+ 
+ 	return NOTIFY_DONE;
+ }
++
++EXPORT_SYMBOL(br_device_notifier);

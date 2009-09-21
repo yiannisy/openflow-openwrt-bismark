@@ -1,0 +1,3 @@
+This repository includes configuration files for a specific target, the luci sources and finally the openwrt package, which needs a patched openwrt.
+
+Please follow the instructions on the openflow wiki on http://www.openflowswitch.org/wk/index.php/OpenWrt_Building_from_Sources
