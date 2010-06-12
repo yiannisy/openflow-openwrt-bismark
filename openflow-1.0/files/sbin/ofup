@@ -14,7 +14,7 @@
 }
 include /lib/openflow
 
-#scan_ofinterfaces
+scan_ofinterfaces
 
 setup_ofswitch "$1"
 sleep 3
