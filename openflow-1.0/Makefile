@@ -86,8 +86,6 @@ define Package/openflow/install
 	$(INSTALL_BIN) ./files/etc/hotplug.d/ofiface/00-netstate $(1)/etc/hotplug.d/ofiface
 
 	$(INSTALL_DIR) $(1)/lib/openflow $(1)/lib/config/trigger
-	$(INSTALL_BIN) ./files/lib/openflow/ofinterfaces.sh $(1)/lib/openflow
-	$(INSTALL_BIN) ./files/lib/openflow/ofsecchan.sh $(1)/lib/openflow
 	$(INSTALL_BIN) ./files/lib/openflow/ofswitch.sh $(1)/lib/openflow
 	$(INSTALL_BIN) ./files/lib/openflow/ofprotocol.sh $(1)/lib/openflow
 	$(INSTALL_BIN) ./files/lib/config/trigger/openflow.lua $(1)/lib/config/trigger

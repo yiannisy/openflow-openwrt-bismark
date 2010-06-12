@@ -1,9 +1,9 @@
 
 config 'ofswitch'
 	option 'dp' 'dp0'
-	option 'proto' 'static'
-	option 'netmask' '255.255.255.0'
 	option 'ofports' 'wlan0 eth0.1 eth0.2 eth0.3 eth0.4'
 	option 'ofctl' 'tcp:171.67.74.239:6633'
+	option 'proto' 'static'
 	option 'ipaddr' '192.168.15.3'
+	option 'netmask' '255.255.255.0'
 	option 'gateway' '192.168.15.1'

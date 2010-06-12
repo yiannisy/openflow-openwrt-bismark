@@ -7,7 +7,6 @@
 [ "x$1" = "x-a" ] && {
 	[ -e "/tmp/resolv.conf.auto" ] && rm /tmp/resolv.conf.auto
 	config_cb() {
-		echo "Configure Callback called"
 		[ ofswitch != "$1" -o -z "$2" ] || eval "$0 $2"
 	}
 	config_load openflow
@@ -15,22 +14,9 @@
 }
 include /lib/openflow
 
-scan_ofinterfaces
+#scan_ofinterfaces
 
 setup_ofswitch "$1"
 sleep 3
 setup_inband_control "$1"
 setup_ofprotocol "$1"
-
-# config_get dp "$1" dp
-
-
-#ifname=`dpctl show ${dp} |awk '/^ LOCAL.*addr/ {split($1,a,"[()]");print a[2]}'`
-
-# echo "My ifname is $ifname"
-
-# for dev in $ifname; do
-#	setup_ofinterface "$dev" "$1"
-#	sleep 1
-#	setup_ofprotocol "$dev" "$1"
-# done

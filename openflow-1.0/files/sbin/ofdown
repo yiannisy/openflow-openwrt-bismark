@@ -12,7 +12,7 @@
 }
 
 include /lib/openflow
-scan_ofinterfaces
+#scan_ofinterfaces
 
 cfg=$1
 debug "### ifdown $cfg ###"

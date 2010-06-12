@@ -1,3 +1,7 @@
-This repository includes configuration files for a specific target, the luci sources and finally the openwrt package, which needs a patched openwrt.
+This repository includes the OpenFlow 1.0 userspace package for OpenWRT,
+along with generic configuration files to be used when building an Openflow @ 
+OpenWRT router image.
 
-Please follow the instructions on the openflow wiki on http://www.openflowswitch.org/wk/index.php/OpenWrt_Building_from_Sources
+Follow the instructions on the openflow wiki for further details :
+
+http://www.openflowswitch.org/wp/openwrt
