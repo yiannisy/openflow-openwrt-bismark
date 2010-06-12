@@ -1,0 +1,16 @@
+config wifi-device  wlan0
+	option type     mac80211
+	option channel  5
+	option macaddr	00:25:9c:30:2c:f4
+	option hwmode	11g
+
+	# REMOVE THIS LINE TO ENABLE WIFI:
+	option disabled 0
+
+config wifi-iface
+	option device   wlan0
+#	option network  lan
+	option mode     ap
+	option ssid     OpenWrt-YY
+	option encryption none
+

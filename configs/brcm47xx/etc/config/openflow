@@ -1,9 +1,0 @@
-
-config 'ofswitch'
-	option 'dp' 'nl:0'
-	option 'proto' 'static'
-	option 'netmask' '255.255.255.0'
-	option 'ofports' 'wlan0 eth0.0 eth0.1 eth0.2 eth0.3 eth0.4 eth1'
-	option 'ofctl' 'tcp:192.168.1.254'
-	option 'ipaddr' '192.168.1.1'
-
