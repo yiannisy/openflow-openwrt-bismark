@@ -5,7 +5,7 @@
 . /etc/functions.sh
 [ $# = 0 ] && { echo "  $0 <group>"; exit; }
 [ "x$1" = "x-a" ] && {
-	[ -e "/tmp/resolv.conf.auto" ] && rm /tmp/resolv.conf.auto
+#	[ -e "/tmp/resolv.conf.auto" ] && rm /tmp/resolv.conf.auto
 	config_cb() {
 		[ ofswitch != "$1" -o -z "$2" ] || eval "$0 $2"
 	}
@@ -18,5 +18,5 @@ scan_ofinterfaces
 
 setup_ofswitch "$1"
 sleep 3
-setup_inband_control "$1"
+setup_box "$1"
 setup_ofprotocol "$1"

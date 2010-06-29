@@ -8,15 +8,25 @@ add_ofswitch_datapath() {
 	local ofports
 	local dpports
 	local dp
+	local mode
 
 	config_get ofports "$config" ofports
 	config_get dp "$config" dp
+	config_get mode "$config" mode
+
 
 	dpports=`echo "$ofports" | tr ' ' ','`
 	echo "$dpports"
 
 	[ -n "$dpports" ] && {
-		ofdatapath punix:/var/run/"$dp".sock -i "$dpports" --no-slicing --local-port=tap:tap0 &
+		if [[ "$mode" == "router" ]]
+		then
+			echo "entering router mode"
+			ofdatapath punix:/var/run/"$dp".sock -i "$dpports" --no-slicing --no-local-port --pidfile &
+		else
+			echo "entering switch mode"
+			ofdatapath punix:/var/run/"$dp".sock -i "$dpports" --no-slicing --local-port=tap:tap0 --pidfile &
+		fi
 	}
 }
 

@@ -56,6 +56,6 @@ config interface
 	option ifname	"eth0.3"
 	option proto	static
 
-config interface
+config interface wan
 	option ifname	"eth0.4"
-	option proto	static
+	option proto	dhcp

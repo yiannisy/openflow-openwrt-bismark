@@ -9,6 +9,8 @@ setup_ofprotocol() {
 	[ -x "/usr/bin/ofprotocol" ] || ( echo "ofprotocol not executable" && return 0 )
 	config_get ofctl "$config" ofctl
 	config_get dp "$config" dp
+	config_get mode "$config" mode
+
 
 	pidfile="/var/run/ofprotocol.pid"
 	# prevent ofprotocol from starting more than once
@@ -20,8 +22,28 @@ setup_ofprotocol() {
 		lock -u "/var/lock/ofprotocol"
 	else
 		[ -z "$dp" -o -z "$ofctl" ] && echo "no controller specified" && return 1
-		ofprotocol unix:/var/run/"$dp".sock "$ofctl" --fail=closed "-D" "--pidfile=$pidfile" &
+		if [[ "$mode" == "router" ]]
+		then
+			ofprotocol unix:/var/run/"$dp".sock "$ofctl" --fail=closed "-D" "--pidfile=$pidfile" --out-of-band &
+		else
+			ofprotocol unix:/var/run/"$dp".sock "ofctl" --fail=closed "-D" "--pidfile=$pidfile" &
+		fi
 		lock -u "/var/lock/ofprotocol"
+	fi
+}
+
+
+setup_box() {
+	local config="$1"
+	local mode
+	
+	config_get mode "$config" mode
+	
+	if [[ "$mode" == "router" ]]
+	then
+		setup_outband_control "$1"
+	else
+		setup_inband_control "$1"
 	fi
 }
 
@@ -37,13 +59,18 @@ setup_inband_control() {
 	echo "Configuring local device with ip $ipaddr and netmask $netmask"	
 	ifconfig tap0 $ipaddr netmask $netmask up
 	route add default gw $gateway
-	
-	# in-band control doesn't support dhcp for the local port
-	#udhcpc -i tap0 -b
 }
 	
+setup_outband_control() {
+	local config="$1"
 	
+	config_get ipaddr "$config" ipaddr
+	config_get netmask "$config" netmask
 	
+	vethd -e tap0 -v veth0
+	ifconfig veth0 $ipaddr netmask $netmask up	
+
+}	
 	
 	
 	

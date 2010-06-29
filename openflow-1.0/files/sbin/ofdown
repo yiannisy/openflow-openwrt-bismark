@@ -12,37 +12,11 @@
 }
 
 include /lib/openflow
-#scan_ofinterfaces
+scan_ofinterfaces
 
-cfg=$1
-debug "### ifdown $cfg ###"
-
-config_get proto "$cfg" proto
-[ -z "$proto" ] && { echo "interface not found."; exit; }
-
-config_get dp "$cfg" dp
-
-#iface=`dpctl show ${dp} |awk '/^ LOCAL.*addr/ {split($1,a,"[()]");print a[2]}'`
-
-[ "static" = "$proto" ] && {
-	env -i ACTION="ifdown" INTERFACE="$cfg" DEVICE="$iface" PROTO=static /sbin/hotplug-call "oface" &
-}
-
-# call ofswitch stop handler
-( type "stop_ofinterface_$proto" ) >/dev/null 2>/dev/null && eval "stop_ofinterface_$proto '$cfg'"
-
-# make sure all locks are removed
-for lock in "/var/lock/secchan-$iface" "/var/lock/dhcp-$iface"; do
-	[ -f "$lock" ] && {
-		lock -u "$lock"
-		sleep 1
-	}
-done
-
-# kill active ppp daemon and other processes
-ifname=$iface
-pids="$(head -n1 -q /var/run/${ifname}.pid /var/run/secchan-${iface}.pid 2>/dev/null)"
-for pid in $pids; do 
+# kill ofprotocol and ofdatapath
+pids="$(head -n 1 -q /var/run/ofprotocol.pid /var/run/ofdatapath.pid 2>/dev/null)"
+for pid in $pids; do
 	[ -d "/proc/$pid" ] && {
 		kill $pid
 		[ -d "/proc/$pid" ] && {
@@ -51,18 +25,10 @@ for pid in $pids; do
 		}
 	}
 done
-rm -f /var/run/${ifname}.pid /var/run/ofprotocol-${ifname}.pid
+rm -f /var/run/ofprotocol.pid /var/run/ofdatapath.pid
+			
 
-config_get ifname "$cfg" ifname
-config_get device "$cfg" device
 
-[ ."$device" != ."$ifname" ] || device=
-for dev in $ifname $device; do
-	ifconfig "$dev" 0.0.0.0 down >/dev/null 2>/dev/null
-done
 
-# remove_ofswitch "$cfg"
 
-# remove the ofswitch's network state
-uci_revert_state openflow "$1"
 
