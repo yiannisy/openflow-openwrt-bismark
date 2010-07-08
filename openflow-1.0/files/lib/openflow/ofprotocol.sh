@@ -26,7 +26,7 @@ setup_ofprotocol() {
 		then
 			ofprotocol unix:/var/run/"$dp".sock "$ofctl" --fail=closed "-D" "--pidfile=$pidfile" --out-of-band &
 		else
-			ofprotocol unix:/var/run/"$dp".sock "ofctl" --fail=closed "-D" "--pidfile=$pidfile" &
+			ofprotocol unix:/var/run/"$dp".sock "$ofctl" --fail=closed "-D" "--pidfile=$pidfile" &
 		fi
 		lock -u "/var/lock/ofprotocol"
 	fi
