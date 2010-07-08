@@ -58,4 +58,4 @@ config interface
 
 config interface wan
 	option ifname	"eth0.4"
-	option proto	dhcp
+	option proto	static
