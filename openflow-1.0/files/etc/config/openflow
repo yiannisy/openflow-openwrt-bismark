@@ -1,7 +1,7 @@
 
 config 'ofswitch'
 	option 'dp' 'dp0'
-	option 'ofports' 'wlan0 eth0.1 eth0.2 eth0.3 tap:tap0'
+	option 'ofports' 'wlan0 eth0.1 eth0.2 eth0.3 eth0.4'
 	option 'ofctl' 'tcp:171.67.74.239:6633'
 	option 'mode'  'switch'
 	option 'ipaddr' '192.168.15.4'
