@@ -37,12 +37,9 @@ config interface loopback
 
 
 #### LAN configuration
-config interface lan
-	option type 	bridge
+config interface
 	option ifname	"eth0.0"
 	option proto	static
-	option ipaddr	192.168.1.1
-	option netmask	255.255.255.0
 
 config interface
 	option ifname	"eth0.1"
@@ -56,6 +53,8 @@ config interface
 	option ifname	"eth0.3"
 	option proto	static
 
-config interface wan
+config interface
 	option ifname	"eth0.4"
 	option proto	static
+	option ipaddr	192.168.1.1
+	option netmask 	255.255.255.0

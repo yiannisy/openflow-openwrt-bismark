@@ -22,11 +22,11 @@ setup_ofprotocol() {
 		lock -u "/var/lock/ofprotocol"
 	else
 		[ -z "$dp" -o -z "$ofctl" ] && echo "no controller specified" && return 1
-		if [[ "$mode" == "router" ]]
+		if [[ "$mode" == "inband" ]]			
 		then
-			ofprotocol unix:/var/run/"$dp".sock "$ofctl" --fail=closed "-D" "--pidfile=$pidfile" --out-of-band &
+			ofprotocol unix:/var/run/"$dp".sock "$ofctl" --fail=closed "-D" "--pidfile=$pidfile" --listen=ptcp: &
 		else
-			ofprotocol unix:/var/run/"$dp".sock "$ofctl" --fail=closed "-D" "--pidfile=$pidfile" &
+			ofprotocol unix:/var/run/"$dp".sock "$ofctl" --fail=closed "-D" "--pidfile=$pidfile" --out-of-band --listen=ptcp: &
 		fi
 		lock -u "/var/lock/ofprotocol"
 	fi
@@ -39,11 +39,11 @@ setup_box() {
 	
 	config_get mode "$config" mode
 	
-	if [[ "$mode" == "router" ]]
+	if [[ "$mode" == "inband" ]]
 	then
-		setup_outband_control "$1"
-	else
 		setup_inband_control "$1"
+	else
+		setup_outband_control "$1"
 	fi
 }
 
@@ -62,14 +62,7 @@ setup_inband_control() {
 }
 	
 setup_outband_control() {
-	local config="$1"
-	
-	config_get ipaddr "$config" ipaddr
-	config_get netmask "$config" netmask
-	
-	vethd -e tap0 -v veth0
-	ifconfig veth0 $ipaddr netmask $netmask up	
-
+	echo "No need for further configuration for out-of-band control"
 }	
 	
 	

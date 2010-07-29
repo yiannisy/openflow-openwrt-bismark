@@ -19,13 +19,13 @@ add_ofswitch_datapath() {
 	echo "$dpports"
 
 	[ -n "$dpports" ] && {
-		if [[ "$mode" == "router" ]]
+		if [[ "$mode" == "inband" ]]
 		then
-			echo "entering router mode"
-			ofdatapath punix:/var/run/"$dp".sock -i "$dpports" --no-slicing --no-local-port --pidfile &
-		else
-			echo "entering switch mode"
+			echo "Configuring OpenFlow switch for inband control"
 			ofdatapath punix:/var/run/"$dp".sock -i "$dpports" --no-slicing --local-port=tap:tap0 --pidfile &
+		else
+			echo "Configuring OpenFlow switch for out-of-band control"
+			ofdatapath punix:/var/run/"$dp".sock -i "$dpports" --no-slicing --no-local-port --pidfile &
 		fi
 	}
 }
