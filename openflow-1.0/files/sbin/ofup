@@ -3,6 +3,12 @@
 
 /sbin/ofdown "$@"
 . /etc/functions.sh
+
+if [ -x /etc/preopenflow.user ]
+then
+	/etc/preopenflow.user
+fi
+
 [ $# = 0 ] && { echo "  $0 <group>"; exit; }
 [ "x$1" = "x-a" ] && {
 #	[ -e "/tmp/resolv.conf.auto" ] && rm /tmp/resolv.conf.auto
@@ -20,3 +26,8 @@ setup_ofswitch "$1"
 sleep 3
 setup_box "$1"
 setup_ofprotocol "$1"
+
+if [ -x /etc/postopenflow.user ]
+then
+	/etc/postopenflow.user
+fi

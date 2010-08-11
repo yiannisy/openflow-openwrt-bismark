@@ -22,10 +22,10 @@ add_ofswitch_datapath() {
 		if [[ "$mode" == "inband" ]]
 		then
 			echo "Configuring OpenFlow switch for inband control"
-			ofdatapath punix:/var/run/"$dp".sock -i "$dpports" --no-slicing --local-port=tap:tap0 --pidfile &
+			ofdatapath punix:/var/run/"$dp".sock -i "$dpports" --local-port=tap:tap0 --pidfile &
 		else
 			echo "Configuring OpenFlow switch for out-of-band control"
-			ofdatapath punix:/var/run/"$dp".sock -i "$dpports" --no-slicing --no-local-port --pidfile &
+			ofdatapath punix:/var/run/"$dp".sock -i "$dpports" --no-local-port --pidfile &
 		fi
 	}
 }
