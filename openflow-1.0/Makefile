@@ -27,6 +27,7 @@ define Package/openflow/Default
   SECTION:=net
   CATEGORY:=Network
   URL:=http://www.openflowswitch.org/
+  MAINTAINER:=Yiannis Yiakoumis (yiannisy@stanford.edu) 
 endef
 
 define Package/openflow/Default/description
