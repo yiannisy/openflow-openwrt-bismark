@@ -40,7 +40,6 @@ endef
 
 define Package/openflow
   $(call Package/openflow/Default)
-  DEPENDS:=+ucitrigger
   TITLE:=Open Flow Switch Userspace Package
 endef
 
@@ -86,11 +85,10 @@ define Package/openflow/install
 	$(INSTALL_BIN) ./files/etc/init.d/openflow $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/etc/hotplug.d/ofiface/00-netstate $(1)/etc/hotplug.d/ofiface
 
-	$(INSTALL_DIR) $(1)/lib/openflow $(1)/lib/config/trigger
+	$(INSTALL_DIR) $(1)/lib/openflow
 	$(INSTALL_BIN) ./files/lib/openflow/ofinterfaces.sh $(1)/lib/openflow
 	$(INSTALL_BIN) ./files/lib/openflow/ofswitch.sh $(1)/lib/openflow
 	$(INSTALL_BIN) ./files/lib/openflow/ofprotocol.sh $(1)/lib/openflow
-	$(INSTALL_BIN) ./files/lib/config/trigger/openflow.lua $(1)/lib/config/trigger
 
 	$(INSTALL_DIR) $(1)/sbin/
 	$(INSTALL_BIN) ./files/sbin/ofup $(1)/sbin/
